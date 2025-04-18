@@ -1,26 +1,2871 @@
+<style>
+/* ==========================================================================
+   Main CSS for Construction & Remodeling Landing Page
+   Modern design with animations and responsive layout
+   ========================================================================== */
+
+/* ===== VARIABLES ===== */
+:root {
+  /* Color Palette */
+  --primary: #ff6b35;       /* Vibrant orange for CTA and highlights */
+  --primary-dark: #e85a2a;  /* Darker orange for hover states */
+  --secondary: #2e4057;     /* Deep blue for headers and important text */
+  --accent: #f5df4d;        /* Yellow accent for attention points */
+  --dark: #222831;          /* Near black for text */
+  --light: #f7f7f7;         /* Off-white for backgrounds */
+  --white: #ffffff;         /* Pure white */
+  --gray-light: #e5e5e5;    /* Light gray for borders and dividers */
+  --gray: #a0a0a0;          /* Medium gray for secondary text */
+  --overlay: rgba(46, 64, 87, 0.85); /* Overlay for hero sections */
+  
+  /* Typography */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.14);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ===== RESET & BASE STYLES ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /* Makes 1rem = 10px */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--dark);
+  background-color: var(--light);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+  font-size: 4.8rem;
+}
+
+h2 {
+  font-size: 3.6rem;
+}
+
+h3 {
+  font-size: 2.8rem;
+}
+
+h4 {
+  font-size: 2.4rem;
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+ul, ol {
+  list-style-position: inside;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ===== CONTAINER AND LAYOUT ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+.section {
+  padding: var(--spacing-lg) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 8rem;
+  height: 0.4rem;
+  background-color: var(--primary);
+  margin: var(--spacing-sm) auto 0;
+  border-radius: var(--radius-sm);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 992px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 56.25%; /* Makes 1rem = 9px */
+  }
+  
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 50%; /* Makes 1rem = 8px */
+  }
+  
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== NAVIGATION ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: transparent;
+  transition: background-color var(--transition-normal), 
+              padding var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.navbar.scrolled {
+  background-color: var(--white);
+  padding: 1rem 0;
+  box-shadow: var(--shadow-md);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem var(--spacing-sm);
+  transition: padding var(--transition-normal);
+}
+
+.navbar-logo {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: color var(--transition-normal);
+}
+
+.scrolled .navbar-logo {
+  color: var(--secondary);
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+}
+
+.navbar-item {
+  margin-left: var(--spacing-md);
+}
+
+.navbar-link {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--white);
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.scrolled .navbar-link {
+  color: var(--secondary);
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width var(--transition-normal);
+}
+
+.navbar-link:hover::after,
+.navbar-link.active::after {
+  width: 100%;
+}
+
+.navbar-cta {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 1rem 2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: background-color var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.navbar-cta:hover {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.navbar-toggle span {
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background-color: var(--white);
+  margin: 6px 0;
+  transition: transform var(--transition-normal),
+              opacity var(--transition-normal),
+              background-color var(--transition-normal);
+}
+
+.scrolled .navbar-toggle span {
+  background-color: var(--secondary);
+}
+
+.navbar-toggle.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+@media (max-width: 992px) {
+  .navbar-toggle {
+    display: block;
+  }
+  
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    flex-direction: column;
+    width: 80%;
+    max-width: 400px;
+    height: 100vh;
+    background-color: var(--white);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xl) var(--spacing-md);
+    transition: right var(--transition-normal);
+    z-index: 1001;
+  }
+  
+  .navbar-menu.active {
+    right: 0;
+  }
+  
+  .navbar-item {
+    margin: var(--spacing-sm) 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .navbar-link {
+    color: var(--secondary);
+    display: block;
+    padding: var(--spacing-sm) 0;
+  }
+  
+  .navbar-cta {
+    display: block;
+    margin-top: var(--spacing-md);
+  }
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  height: 100vh;
+  min-height: 600px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+.hero-title {
+  font-size: 6rem;
+  color: var(--white);
+  margin-bottom: var(--spacing-md);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards 0.3s;
+}
+
+.hero-subtitle {
+  font-size: 2.4rem;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards 0.6s;
+}
+
+.hero-cta {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 1.5rem 3rem;
+  border-radius: var(--radius-md);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color var(--transition-fast),
+              transform var(--transition-fast);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards 0.9s;
+}
+
+.hero-cta:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 1.2s, bounce 2s infinite;
+}
+
+.hero-scroll i {
+  display: block;
+  font-size: 2.4rem;
+  margin-top: var(--spacing-xs);
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 4.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 2rem;
+  }
+}
+
+/* ===== SERVICES SECTION ===== */
+.services {
+  background-color: var(--white);
+}
+
+.service-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-md);
+  transition: transform var(--transition-normal),
+              box-shadow var(--transition-normal);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon {
+  color: var(--primary);
+  font-size: 4.8rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.service-title {
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.service-description {
+  color: var(--gray);
+}
+
+.service-arrow {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--primary);
+  transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-arrow {
+  transform: translateX(10px);
+}
+
+/* ===== ABOUT SECTION ===== */
+.about {
+  background-color: var(--gray-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-title {
+  margin-bottom: var(--spacing-md);
+}
+
+.about-subtitle {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.about-text {
+  margin-bottom: var(--spacing-md);
+}
+
+.about-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.stat-item {
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stat-number.in-view {
+  animation: countUp 2s ease forwards, fadeInUp 1s ease forwards;
+}
+
+.stat-label {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.about-image {
+  height: 100%;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.about-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--primary-dark), transparent);
+  opacity: 0.3;
+}
+
+@media (max-width: 992px) {
+  .about-image {
+    margin-top: var(--spacing-lg);
+  }
+}
+
+/* ===== PROJECTS SECTION ===== */
+.projects {
+  background-color: var(--white);
+}
+
+.project-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.filter-btn {
+  background: none;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color var(--transition-fast),
+              transform var(--transition-fast);
+  position: relative;
+}
+
+.filter-btn::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width var(--transition-normal);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  color: var(--primary);
+}
+
+.filter-btn:hover::after,
+.filter-btn.active::after {
+  width: 100%;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.project-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 300px;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.1);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--spacing-md);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-category {
+  color: var(--primary);
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-xs);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform var(--transition-normal) 0.1s,
+              opacity var(--transition-normal) 0.1s;
+}
+
+.project-title {
+  color: var(--white);
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-sm);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform var(--transition-normal) 0.2s,
+              opacity var(--transition-normal) 0.2s;
+}
+
+.project-link {
+  color: var(--white);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform var(--transition-normal) 0.3s,
+              opacity var(--transition-normal) 0.3s;
+}
+
+.project-link i {
+  margin-left: var(--spacing-xs);
+  transition: transform var(--transition-fast);
+}
+
+.project-link:hover i {
+  transform: translateX(5px);
+}
+
+.project-card:hover .project-category,
+.project-card:hover .project-title,
+.project-card:hover .project-link {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ===== TESTIMONIALS SECTION ===== */
+.testimonials {
+  background-color: var(--gray-light);
+  position: relative;
+}
+
+.testimonial-slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform var(--transition-slow);
+}
+
+.testimonial-slide {
+  min-width: 100%;
+  padding: 0 var(--spacing-sm);
+}
+
+.testimonial-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: """;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-size: 8rem;
+  line-height: 1;
+  font-family: serif;
+  color: var(--primary);
+  opacity: 0.2;
+}
+
+.testimonial-text {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin-bottom: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+.testimonial-avatar {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: var(--spacing-sm);
+}
+
+.testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-info h4 {
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-position {
+  color: var(--gray);
+  font-size: 1.4rem;
+}
+
+.testimonial-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+  gap: var(--spacing-sm);
+}
+
+.testimonial-btn {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--white);
+  color: var(--secondary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.testimonial-btn:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-md);
+  gap: var(--spacing-xs);
+}
+
+.testimonial-dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background-color: var(--gray-light);
+  border: 2px solid var(--primary);
+  transition: background-color var(--transition-fast),
+              transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.testimonial-dot.active,
+.testimonial-dot:hover {
+  background-color: var(--primary);
+  transform: scale(1.2);
+}
+
+/* ===== CTA SECTION ===== */
+.cta {
+  background-color: var(--secondary);
+  color: var(--white);
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('pattern.svg');
+  opacity: 0.05;
+}
+
+.cta-title {
+  color: var(--white);
+  margin-bottom: var(--spacing-md);
+}
+
+.cta-text {
+  font-size: 1.8rem;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  padding: 1.5rem 3rem;
+  border-radius: var(--radius-md);
+  font-size: 1.8rem;
+  font-weight: 600;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.cta-btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.cta-btn-secondary {
+  background-color: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
+.cta-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.cta-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact {
+  background-color: var(--white);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.contact-info {
+  padding-right: var(--spacing-lg);
+}
+
+.contact-details {
+  margin-top: var(--spacing-md);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.contact-icon {
+  font-size: 2.4rem;
+  color: var(--primary);
+  margin-right: var(--spacing-sm);
+}
+
+.contact-text h4 {
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.8rem;
+}
+
+.contact-text p {
+  color: var(--gray);
+  margin-bottom: 0;
+}
+
+.contact-social {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.social-link {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--gray-light);
+  color: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.social-link:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-5px);
+}
+
+.contact-form {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-control {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--gray-light);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+}
+
+textarea.form-control {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-btn {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 1.2rem 2.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.form-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-info {
+    padding-right: 0;
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: var(--dark);
+  color: var(--gray);
+  padding: var(--spacing-lg) 0 var(--spacing-md);
+  position: relative;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--spacing-sm);
+  display: inline-block;
+}
+
+.footer-about {
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-title {
+  color: var(--white);
+  font-size: 1.8rem;
+  margin-bottom: var(--spacing-md);
+  position: relative;
+}
+
+.footer-title::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 3px;
+  background-color: var(--primary);
+  margin-top: var(--spacing-xs);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-links a {
+  color: var(--gray);
+  transition: color var(--transition-fast),
+              padding-left var(--transition-fast);
+  position: relative;
+}
+
+.footer-links a::before {
+  content: "→";
+  opacity: 0;
+  margin-right: var(--spacing-xs);
+  transition: opacity var(--transition-fast),
+              margin-right var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+  padding-left: var(--spacing-sm);
+}
+
+.footer-links a:hover::before {
+  opacity: 1;
+  margin-right: var(--spacing-sm);
+}
+
+.footer-contact-item {
+  display: flex;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-contact-icon {
+  color: var(--primary);
+  margin-right: var(--spacing-sm);
+  font-size: 1.8rem;
+}
+
+.footer-newsletter p {
+  margin-bottom: var(--spacing-sm);
+}
+
+.newsletter-form {
+  display: flex;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+}
+
+.newsletter-btn {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.newsletter-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.footer-copyright {
+  font-size: 1.4rem;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.footer-bottom-link {
+  color: var(--gray);
+  font-size: 1.4rem;
+}
+
+.footer-bottom-link:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ===== BACK TO TOP BUTTON ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity var(--transition-normal),
+              visibility var(--transition-normal),
+              transform var(--transition-normal),
+              background-color var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--primary-dark);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  40% {
+    transform: translateY(-20px) translateX(-50%);
+  }
+  60% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+}
+
+@keyframes countUp {
+  from {
+    content: "0";
+  }
+  to {
+    content: attr(data-count);
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-1 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.mb-2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.mb-3 {
+  margin-bottom: var(--spacing-md);
+}
+
+.mb-4 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.mb-5 {
+  margin-bottom: var(--spacing-xl);
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-1 {
+  margin-top: var(--spacing-xs);
+}
+
+.mt-2 {
+  margin-top: var(--spacing-sm);
+}
+
+.mt-3 {
+  margin-top: var(--spacing-md);
+}
+
+.mt-4 {
+  margin-top: var(--spacing-lg);
+}
+
+.mt-5 {
+  margin-top: var(--spacing-xl);
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-light {
+  background-color: var(--light);
+}
+
+.bg-dark {
+  background-color: var(--dark);
+}
+
+.bg-white {
+  background-color: var(--white);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 992px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 768px;
+  }
+  
+  h1 {
+    font-size: 4.2rem;
+  }
+  
+  h2 {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 576px;
+  }
+  
+  .section {
+    padding: var(--spacing-md) 0;
+  }
+  
+  h1 {
+    font-size: 3.6rem;
+  }
+  
+  h2 {
+    font-size: 2.8rem;
+  }
+  
+  h3 {
+    font-size: 2.4rem;
+  }
+  
+  .hero-title {
+    font-size: 3.6rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 100%;
+    padding: 0 var(--spacing-md);
+  }
+  
+  h1 {
+    font-size: 3.2rem;
+  }
+  
+  h2 {
+    font-size: 2.4rem;
+  }
+  
+  h3 {
+    font-size: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 3.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== PAGE LOADER ===== */
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity var(--transition-normal),
+              visibility var(--transition-normal);
+}
+
+.page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader {
+  width: 5rem;
+  height: 5rem;
+  border: 5px solid var(--gray-light);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== SCROLL REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-normal),
+              transform var(--transition-normal);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity var(--transition-normal),
+              transform var(--transition-normal);
+}
+
+.reveal-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity var(--transition-normal),
+              transform var(--transition-normal);
+}
+
+.reveal-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor {
+  position: fixed;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s;
+  z-index: 9999;
+  opacity: 0;
+}
+
+.cursor.active {
+  opacity: 1;
+}
+
+.cursor-follower {
+  position: fixed;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s;
+  z-index: 9999;
+  opacity: 0;
+}
+
+.cursor-follower.active {
+  opacity: 1;
+}
+
+.cursor.hover,
+.cursor-follower.hover {
+  background-color: transparent;
+  width: 5rem;
+  height: 5rem;
+  border-color: var(--primary);
+}
+
+/* ===== PREFERS REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  .hero-title,
+  .hero-subtitle,
+  .hero-cta,
+  .hero-scroll,
+  .project-category,
+  .project-title,
+  .project-link,
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .stat-number {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  
+  .service-card,
+  .project-card,
+  .cta-btn,
+  .social-link,
+  .form-btn,
+  .back-to-top,
+  .navbar-cta,
+  .project-image {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --light: #222831;
+    --dark: #e5e5e5;
+    --white: #1a1a1a;
+    --gray-light: #333333;
+    --gray: #b0b0b0;
+  }
+  
+  .navbar.scrolled {
+    background-color: var(--dark);
+  }
+  
+  .service-card,
+  .testimonial-card,
+  .contact-form {
+    background-color: var(--secondary);
+    color: var(--gray-light);
+  }
+  
+  .service-title,
+  .contact-form h3 {
+    color: var(--light);
+  }
+  
+  .form-control {
+    background-color: var(--dark);
+    color: var(--light);
+    border-color: var(--gray);
+  }
+  
+  .newsletter-input {
+    background-color: var(--gray-light);
+    color: var(--light);
+  }
+}
+
+</style>
+
+
+
+
+
+
+<script>
+
+/**
+ * Main JavaScript for Construction & Remodeling Landing Page
+ * Includes animations, interactions, and functionality
+ */
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // -----------------------------------------
+    // Page Loader
+    // -----------------------------------------
+    const pageLoader = document.querySelector('.page-loader');
+    if (pageLoader) {
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                pageLoader.classList.add('loaded');
+                // Enable animations after page load
+                document.body.classList.add('loaded');
+            }, 500);
+        });
+    }
+
+    // -----------------------------------------
+    // Navbar Scroll Effect
+    // -----------------------------------------
+    const navbar = document.querySelector('.navbar');
+    const navbarToggle = document.querySelector('.navbar-toggle');
+    const navbarMenu = document.querySelector('.navbar-menu');
+    const navLinks = document.querySelectorAll('.navbar-link');
+
+    // Add scroll class to navbar when scrolled
+    function handleNavbarScroll() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }
+
+    // Initialize navbar state on page load
+    handleNavbarScroll();
+    
+    // Update navbar on scroll
+    window.addEventListener('scroll', handleNavbarScroll);
+
+    // Mobile menu toggle
+    if (navbarToggle && navbarMenu) {
+        navbarToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navbarMenu.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+    }
+
+    // Close mobile menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navbarToggle.classList.remove('active');
+            navbarMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
+    });
+
+    // -----------------------------------------
+    // Smooth Scrolling for Anchor Links
+    // -----------------------------------------
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const navbarHeight = navbar.offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                
+                window.scrollTo({
+                    top: targetPosition - navbarHeight,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // -----------------------------------------
+    // Active Navigation Link on Scroll
+    // -----------------------------------------
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPosition = window.scrollY + navbar.offsetHeight + 100;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                document.querySelectorAll('.navbar-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNavLink);
+    updateActiveNavLink();
+
+    // -----------------------------------------
+    // Scroll Reveal Animations
+    // -----------------------------------------
+    function revealElements() {
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const windowHeight = window.innerHeight;
+        
+        reveals.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementPosition < windowHeight - elementVisible) {
+                element.classList.add('active');
+                
+                // If it's a stat counter, start animation
+                const statNumber = element.querySelector('.stat-number');
+                if (statNumber && !statNumber.classList.contains('in-view')) {
+                    statNumber.classList.add('in-view');
+                    animateStatCounter(statNumber);
+                }
+            }
+        });
+    }
+
+    window.addEventListener('scroll', revealElements);
+    revealElements(); // Trigger on initial load
+
+    // -----------------------------------------
+    // Stat Counters Animation
+    // -----------------------------------------
+    function animateStatCounter(statElement) {
+        const targetValue = parseInt(statElement.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const stepTime = 50; // Update every 50ms
+        const totalSteps = duration / stepTime;
+        const stepValue = targetValue / totalSteps;
+        
+        let currentValue = 0;
+        let currentStep = 0;
+        
+        const counter = setInterval(() => {
+            currentStep++;
+            currentValue += stepValue;
+            
+            if (currentStep >= totalSteps) {
+                clearInterval(counter);
+                statElement.textContent = targetValue;
+            } else {
+                statElement.textContent = Math.floor(currentValue);
+            }
+        }, stepTime);
+    }
+
+    // Initialize stat counters that are visible on page load
+    document.querySelectorAll('.stat-number').forEach(stat => {
+        if (isElementInViewport(stat)) {
+            stat.classList.add('in-view');
+            animateStatCounter(stat);
+        }
+    });
+
+    // -----------------------------------------
+    // Project Filtering
+    // -----------------------------------------
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            
+            projectCards.forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    }, 50);
+                } else if (card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+
+    // -----------------------------------------
+    // Testimonial Slider
+    // -----------------------------------------
+    const testimonialTrack = document.querySelector('.testimonial-track');
+    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+    const prevButton = document.querySelector('.prev-testimonial');
+    const nextButton = document.querySelector('.next-testimonial');
+    const dotsContainer = document.querySelector('.testimonial-dots');
+    const dots = document.querySelectorAll('.testimonial-dot');
+
+    if (testimonialTrack && testimonialSlides.length > 0) {
+        let currentIndex = 0;
+        const slideWidth = 100; // 100%
+        
+        // Set initial position
+        testimonialTrack.style.transform = `translateX(0%)`;
+        
+        // Function to update slider position
+        function updateSliderPosition() {
+            testimonialTrack.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+            
+            // Update active dot
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Previous slide button
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : testimonialSlides.length - 1;
+                updateSliderPosition();
+            });
+        }
+        
+        // Next slide button
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
+                updateSliderPosition();
+            });
+        }
+        
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSliderPosition();
+            });
+        });
+        
+        // Auto-advance slider (optional)
+        let sliderInterval = setInterval(() => {
+            currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
+            updateSliderPosition();
+        }, 5000);
+        
+        // Pause auto-advance on hover
+        testimonialTrack.addEventListener('mouseenter', () => {
+            clearInterval(sliderInterval);
+        });
+        
+        testimonialTrack.addEventListener('mouseleave', () => {
+            sliderInterval = setInterval(() => {
+                currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
+                updateSliderPosition();
+            }, 5000);
+        });
+
+        // Handle touch events for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        testimonialTrack.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        testimonialTrack.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX + swipeThreshold < touchStartX) {
+                // Swipe left (next)
+                currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
+                updateSliderPosition();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                // Swipe right (prev)
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : testimonialSlides.length - 1;
+                updateSliderPosition();
+            }
+        }
+    }
+
+    // -----------------------------------------
+    // Back to Top Button
+    // -----------------------------------------
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    function toggleBackToTopButton() {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    }
+    
+    window.addEventListener('scroll', toggleBackToTopButton);
+    toggleBackToTopButton(); // Initialize on load
+    
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // -----------------------------------------
+    // Form Validation & Submission
+    // -----------------------------------------
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            let isValid = true;
+            const requiredFields = contactForm.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('error');
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+            
+            // Email validation
+            const emailField = contactForm.querySelector('#email');
+            if (emailField && emailField.value) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailField.value)) {
+                    isValid = false;
+                    emailField.classList.add('error');
+                }
+            }
+            
+            if (isValid) {
+                // Form is valid, you can submit it here
+                // For demonstration, we'll just show a success message
+                const formData = new FormData(contactForm);
+                
+                // Here you would normally send the data to your server
+                // For demonstration, we'll simulate a successful submission
+                
+                // Disable the submit button to prevent multiple submissions
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                
+                // Simulate server request
+                setTimeout(() => {
+                    // Show success message
+                    contactForm.innerHTML = `
+                        <div class="form-success">
+                            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: var(--spacing-sm);"></i>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>Thank you for contacting us. We will get back to you shortly.</p>
+                        </div>
+                    `;
+                }, 1500);
+            }
+        });
+        
+        // Real-time validation feedback
+        const formInputs = contactForm.querySelectorAll('.form-control');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('error');
+                } else {
+                    this.classList.remove('error');
+                }
+                
+                // Special case for email field
+                if (this.type === 'email' && this.value) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(this.value)) {
+                        this.classList.add('error');
+                    } else {
+                        this.classList.remove('error');
+                    }
+                }
+            });
+        });
+    }
+
+    // -----------------------------------------
+    // Newsletter Form Submission
+    // -----------------------------------------
+    const newsletterForm = document.querySelector('.newsletter-form');
+    
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = this.querySelector('.newsletter-input');
+            const email = emailInput.value.trim();
+            
+            if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                // Valid email
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<p class="success-message">Thank you for subscribing!</p>';
+                
+                // Reset after a few seconds
+                setTimeout(() => {
+                    this.innerHTML = originalHtml;
+                }, 3000);
+            } else {
+                // Invalid email
+                emailInput.classList.add('error');
+                
+                setTimeout(() => {
+                    emailInput.classList.remove('error');
+                }, 1500);
+            }
+        });
+    }
+
+    // -----------------------------------------
+    // Custom Cursor (Optional)
+    // -----------------------------------------
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    
+    if (cursor && cursorFollower) {
+        document.addEventListener('mousemove', function(e) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Add a slight delay to follower for nice effect
+            setTimeout(function() {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 50);
+        });
+        
+        // Show cursor only when mouse moves
+        document.addEventListener('mouseenter', function() {
+            cursor.classList.add('active');
+            cursorFollower.classList.add('active');
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            cursor.classList.remove('active');
+            cursorFollower.classList.remove('active');
+        });
+        
+        // Change cursor style when hovering on links and buttons
+        const links = document.querySelectorAll('a, button, .service-card, .project-card, .social-link');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                cursor.classList.add('hover');
+                cursorFollower.classList.add('hover');
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                cursor.classList.remove('hover');
+                cursorFollower.classList.remove('hover');
+            });
+        });
+    }
+
+    // -----------------------------------------
+    // Utility Functions
+    // -----------------------------------------
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Landing Page</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>BuildMaster | Construction & Remodeling Company</title>
+    <meta name="description" content="BuildMaster Construction & Remodeling - Professional, reliable construction services for your home or business. From renovations to new builds, we bring your vision to life.">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Landing Page</h1>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader"></div>
+    </div>
+    
+    <!-- Custom Cursor (Optional) -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="navbar-logo">BuildMaster</a>
+            
+            <button class="navbar-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav>
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="#home" class="navbar-link active">Home</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#about" class="navbar-link">About</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#services" class="navbar-link">Services</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#projects" class="navbar-link">Projects</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#testimonials" class="navbar-link">Testimonials</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#contact" class="navbar-link">Contact</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#contact" class="navbar-cta">Get A Quote</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
-    <main>
-        <section>
-            <p>This is my awesome landing page with separate HTML, CSS, and JavaScript files.</p>
-        </section>
-    </main>
+    <!-- Hero Section -->
+    <section id="home" class="hero" style="background-image: url('https://images.unsplash.com/photo-1503387837-b154d5074bd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Building Dreams Into Reality</h1>
+                <p class="hero-subtitle">Premium construction & remodeling services with unmatched quality and craftsmanship</p>
+                <a href="#contact" class="hero-cta">Request Free Quote</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            Scroll Down
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
     
-    <footer>
-        <p>&copy; 2025 My Landing Page</p>
+    <!-- Services Section -->
+    <section id="services" class="services section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="text-center mb-4">We provide comprehensive construction and remodeling services tailored to meet your specific needs.</p>
+            
+            <div class="grid grid-4">
+                <!-- Service 1 -->
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="service-title">Home Remodeling</h3>
+                    <p class="service-description">Transform your living space with our expert remodeling services. From kitchens to bathrooms, we handle it all.</p>
+                    <a href="#contact" class="service-arrow">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="service-title">New Construction</h3>
+                    <p class="service-description">Build the home of your dreams from the ground up with our comprehensive construction services.</p>
+                    <a href="#contact" class="service-arrow">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3 class="service-title">Renovation</h3>
+                    <p class="service-description">Breathe new life into your property with our renovation services designed to modernize and enhance.</p>
+                    <a href="#contact" class="service-arrow">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <h3 class="service-title">Interior Design</h3>
+                    <p class="service-description">Create beautiful, functional spaces with our professional interior design and decoration services.</p>
+                    <a href="#contact" class="service-arrow">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="grid grid-2">
+                <div class="about-content reveal-left">
+                    <span class="about-subtitle">About Us</span>
+                    <h2 class="about-title">Building Excellence Since 2005</h2>
+                    <p class="about-text">BuildMaster Construction is a premium construction and remodeling company with over 18 years of experience in delivering exceptional projects. We take pride in our attention to detail, quality craftsmanship, and commitment to customer satisfaction.</p>
+                    <p class="about-text">Our team of skilled professionals is dedicated to bringing your vision to life, whether it's a new home construction, a kitchen renovation, or a complete property transformation.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="500">0</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="18">0</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="35">0</div>
+                            <div class="stat-label">Team Members</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="98">0</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image reveal-right" style="background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+        <div class="container">
+            <h2 class="section-title">Our Projects</h2>
+            <p class="text-center mb-4">Explore our portfolio of completed projects showcasing our expertise and craftsmanship.</p>
+            
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="residential">Residential</button>
+                <button class="filter-btn" data-filter="commercial">Commercial</button>
+                <button class="filter-btn" data-filter="renovation">Renovation</button>
+                <button class="filter-btn" data-filter="interior">Interior Design</button>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="residential">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Home Construction" class="project-image">
+                    <div class="project-overlay">
+                        <div class="project-category">Residential</div>
+                        <h3 class="project-title">Modern Family Home</h3>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card" data-category="commercial">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Office Building Renovation" class="project-image">
+                    <div class="project-overlay">
+                        <div class="project-category">Commercial</div>
+                        <h3 class="project-title">Downtown Office Building</h3>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card" data-category="renovation">
+                    <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kitchen Renovation" class="project-image">
+                    <div class="project-overlay">
+                        <div class="project-category">Renovation</div>
+                        <h3 class="project-title">Luxury Kitchen Remodel</h3>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card" data-category="interior">
+                    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Living Room Interior Design" class="project-image">
+                    <div class="project-overlay">
+                        <div class="project-category">Interior Design</div>
+                        <h3 class="project-title">Contemporary Living Space</h3>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card" data-category="residential">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Villa Construction" class="project-image">
+                    <div class="project-overlay">
+                        <div class="project-category">Residential</div>
+                        <h3 class="project-title">Hillside Modern Villa</h3>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card" data-category="renovation">
+                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bathroom Renovation" class="project-image">
+                    <div class="project-overlay">
+                        <div class="project-category">Renovation</div>
+                        <h3 class="project-title">Spa-like Bathroom</h3>
+                        <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="text-center mb-4">Hear from our satisfied clients about their experience working with BuildMaster Construction.</p>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">BuildMaster transformed our outdated kitchen into a modern, functional space that exceeded our expectations. Their team was professional, punctual, and paid attention to every detail. We couldn't be happier with the results!</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/56.jpg" alt="Sarah Johnson">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <p class="testimonial-position">Homeowner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">We hired BuildMaster for our office renovation project and were impressed by their efficiency and quality workmanship. They completed the project on time and within budget, with minimal disruption to our business operations.</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Michael Davis">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Michael Davis</h4>
+                                    <p class="testimonial-position">Business Owner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">The BuildMaster team built our dream home from the ground up. Their attention to detail, communication throughout the process, and craftsmanship were exceptional. I would highly recommend them to anyone looking for quality construction.</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Jennifer & Robert Thompson">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Jennifer & Robert Thompson</h4>
+                                    <p class="testimonial-position">Homeowners</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-controls">
+                <button class="testimonial-btn prev-testimonial" aria-label="Previous Testimonial">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="testimonial-btn next-testimonial" aria-label="Next Testimonial">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="testimonial-dots">
+                <button class="testimonial-dot active" data-index="0" aria-label="Testimonial 1"></button>
+                <button class="testimonial-dot" data-index="1" aria-label="Testimonial 2"></button>
+                <button class="testimonial-dot" data-index="2" aria-label="Testimonial 3"></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta section">
+        <div class="container">
+            <h2 class="cta-title">Ready To Start Your Project?</h2>
+            <p class="cta-text">Contact us today for a free consultation and quote. Let's bring your vision to life with our expert team of builders and designers.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-btn cta-btn-primary">Get Free Quote</a>
+                <a href="#services" class="cta-btn cta-btn-secondary">Explore Services</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="text-center mb-4">Reach out to us for any questions or to schedule a consultation.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>Fill out the form or contact us directly using the information below. We'll get back to you as soon as possible.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Our Location</h4>
+                                <p>123 Construction Way, Building City, ST 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone Number</h4>
+                                <p>(555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email Address</h4>
+                                <p>info@buildmaster.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Working Hours</h4>
+                                <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Us A Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Your Name *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Your Email *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" id="phone" placeholder="Your Phone">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="service">
+                                <option value="" selected disabled>Select Service</option>
+                                <option value="Home Remodeling">Home Remodeling</option>
+                                <option value="New Construction">New Construction</option>
+                                <option value="Renovation">Renovation</option>
+                                <option value="Interior Design">Interior Design</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" placeholder="Your Message *" required></textarea>
+                        </div>
+                        <button type="submit" class="form-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <div class="map">
+        <!-- Using a map image from the internet -->
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=New+York,NY&zoom=13&size=1200x400&maptype=roadmap&key=YOUR_API_KEY" 
+             alt="Location Map" style="width: 100%; height: 400px; object-fit: cover;">
+        <!-- Note: Replace YOUR_API_KEY with an actual Google Maps API key, or use the commented iframe below -->
+        <!-- 
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059353029!2d-74.25986548248684!3d40.69714941680757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1619756483692!5m2!1sen!2s" 
+            width="100%" 
+            height="400" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+        -->
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="#" class="footer-logo">BuildMaster</a>
+                    <p class="footer-about">Premium construction and remodeling services with a commitment to quality, innovation, and customer satisfaction.</p>
+                    <div class="contact-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home Remodeling</a></li>
+                        <li><a href="#">New Construction</a></li>
+                        <li><a href="#">Renovation</a></li>
+                        <li><a href="#">Interior Design</a></li>
+                        <li><a href="#">Project Management</a></li>
+                        <li><a href="#">Consultation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-title">Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive updates, news, and exclusive offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your Email Address" required>
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2025 BuildMaster Construction. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-bottom-link">Privacy Policy</a>
+                    <a href="#" class="footer-bottom-link">Terms of Service</a>
+                    <a href="#" class="footer-bottom-link">Sitemap</a>
+                </div>
+            </div>
+        </div>
     </footer>
     
-    <script src="js/script.js"></script>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Main JS (Your JavaScript file will be linked here) -->
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
